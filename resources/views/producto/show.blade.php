@@ -7,11 +7,8 @@
     <title>NEXUS</title>
 </head>
 <body>
-    <div>
-        <a href="{{ route('productos.index') }}">Ver Productos</a> 
-    </div>
-    <div>
-        <a href="{{ route('productos.create') }}">Crear Producto</a> 
-    </div>
+    <p>Producto: {{ $producto->nombre }}</p> 
+    <p>Precio: {{ $producto->precio }}</p>
+    <p>Existencias: {{ $producto->existencias }}</p>
 </body>
 </html>
