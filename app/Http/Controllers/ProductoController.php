@@ -36,14 +36,14 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-       $producto = new Producto();
-       $producto->nombre = $request->nombre;
-       $producto->categoria = $request->categoria;
-       $producto->existencias = $request->existencias;
-       $producto->precio = $request->precio;
-       $producto->save();
-
-       return redirect()->route('productos.index');
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'categoria' => 'max:255',
+            'existencias' => 'integer|min:0',
+            'precio' => 'required',
+        ]);
+        Producto::create($request->all());
+        return redirect()->route('productos.index');
     }
 
     /**
@@ -65,7 +65,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        return view('producto.form-edit', compact('producto'));
     }
 
     /**
@@ -77,7 +77,15 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'categoria' => 'max:255',
+            'existencias' => 'integer|min:0',
+            'precio' => 'required',
+        ]);
+        Producto::where('id', $producto->id)->update($request->except('_token', '_method'));
+        return redirect()->route('productos.index');
+
     }
 
     /**
@@ -88,6 +96,7 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        $producto->delete();
+        return redirect()->route('productos.index');
     }
 }

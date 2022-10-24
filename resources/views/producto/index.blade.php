@@ -10,7 +10,18 @@
 
 <body>
     @foreach ($productos as $producto)
-        <div><a href="{{ route('productos.show', $producto) }}">{{ $producto->nombre }}</a></div>
+        <tr>
+            <td>{{ $producto->id }}</td>
+            <td><a href="{{ route('productos.show', $producto) }}">{{ $producto->nombre }}</a></td>
+            <td><a href="{{ route('productos.edit', $producto) }}">Editar</a></td>
+            <td>
+                <form method="POST" action="{{ route('productos.destroy', $producto) }}">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" value="Eliminar">
+                </form>
+            </td>
+        </tr>
     @endforeach
 </body>
 
