@@ -38,9 +38,9 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required|max:255',
-            'categoria' => 'max:255',
+            'categoria' => 'required|max:255',
             'existencias' => 'integer|min:0',
-            'precio' => 'required',
+            'precio' => 'required|numeric',
         ]);
         Producto::create($request->all());
         return redirect()->route('productos.index');
