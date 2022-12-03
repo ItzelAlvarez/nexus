@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('producto.form-create');
+        $categorias = Categoria::all();
+        return view('producto.form-create', compact('categorias'));
     }
 
     /**
@@ -38,7 +40,7 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required|max:255',
-            'categoria' => 'required|max:255',
+            'categoria_id' => 'required|exists:categorias,id',
             'existencias' => 'integer|min:0',
             'precio' => 'required|numeric',
         ]);
@@ -65,7 +67,8 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('producto.form-edit', compact('producto'));
+        $categorias = Categoria::all();
+        return view('producto.form-edit', compact('producto', 'categorias'));
     }
 
     /**
@@ -79,9 +82,9 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required|max:255',
-            'categoria' => 'max:255',
+            'categoria_id' => 'required',
             'existencias' => 'integer|min:0',
-            'precio' => 'required',
+            'precio' => 'required|numeric',
         ]);
         Producto::where('id', $producto->id)->update($request->except('_token', '_method'));
         return redirect()->route('productos.index');

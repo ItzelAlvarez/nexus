@@ -12,15 +12,22 @@
     <h3>Editar producto: </h3>
     <form action="{{ route('productos.update', $producto->id) }}" method="POST">
         @csrf
-        @method("PATCH")
+        @method('PATCH')
         <label for="nombre">Nombre del Producto:</label>
         <input type="text" name="nombre" id="nombre" value="{{ old('nombre') ?? $producto->nombre }}">
         <br>
         <label for="categoria">Categoria:</label>
-        <input type="text" name="categoria" id="categoria" value="{{ old('categoria') ?? $producto->categoria }}">
+        <select name="categoria_id" id="categoria_id">
+            @foreach ($categorias as $categoria)
+                <option id="{{ $categoria->id }}" value="{{ $categoria->id }}"
+                    {{ $producto->categoria_id == $categoria->id ? 'selected' : '' }}>
+                    {{ $categoria->nombre }}</option>
+            @endforeach
+        </select>
         <br>
         <label for="existencias">Existencias:</label>
-        <input type="number" name="existencias" id="existencias" value="{{ old('existencias') ?? $producto->existencias }}">
+        <input type="number" name="existencias" id="existencias"
+            value="{{ old('existencias') ?? $producto->existencias }}">
         <br>
         <label for="precio">Precio:</label>
         <input type="number" name="precio" id="precio" value="{{ old('precio') ?? $producto->precio }}">

@@ -1,28 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-plantilla>
+    <h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS</title>
-</head>
+        <div class="overflow-x-auto relative">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="py-3 px-6">
+                            Nombre
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Categoria
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                          Acciones
+                      </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($productos as $producto)
+                        <tr>
+                            <td><a href="{{ route('productos.show', $producto) }}">{{ $producto->nombre }}</a></td>
+                            <td>{{ $producto->categoria->nombre }}</td>
+                            <td><a href="{{ route('productos.edit', $producto) }}">Editar</a>
+                              <form method="POST" action="{{ route('productos.destroy', $producto) }}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" value="Eliminar">
+                            </form>
+                          </td>
+                        </tr>
+                    @endforeach
 
-<body>
-    @foreach ($productos as $producto)
-        <tr>
-            <td>{{ $producto->id }}</td>
-            <td><a href="{{ route('productos.show', $producto) }}">{{ $producto->nombre }}</a></td>
-            <td><a href="{{ route('productos.edit', $producto) }}">Editar</a></td>
-            <td>
-                <form method="POST" action="{{ route('productos.destroy', $producto) }}">
-                    @csrf
-                    @method('DELETE')
-                    <input type="submit" value="Eliminar">
-                </form>
-            </td>
-        </tr>
-    @endforeach
-</body>
+                </tbody>
+            </table>
+        </div>
 
-</html>
+    </h1>
+</x-plantilla>

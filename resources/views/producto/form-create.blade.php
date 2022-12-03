@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NEXUS</title>
-</head>
-
-<body>
+<x-plantilla>
     <h3>Agregar nuevo producto: </h3>
     <form action="{{ route('productos.store') }}" method="POST">
         @csrf
@@ -19,7 +9,12 @@
         @enderror
         <br>
         <label for="categoria">Categoria:</label>
-        <input type="text" name="categoria" id="categoria" value="{{ old('categoria') }}">
+        <select name="categoria_id" id="categoria_id">
+            @foreach ($categorias as $categoria)
+            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                
+            @endforeach
+        </select>
         @error('categoria')
         <i>{{ $message }}</i>
         @enderror
@@ -38,6 +33,4 @@
         <br>
         <input class="button" type="submit" value="Enviar">
     </form>
-</body>
-
-</html>
+</x-plantilla>
