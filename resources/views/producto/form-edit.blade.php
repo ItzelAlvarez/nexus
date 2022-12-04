@@ -14,6 +14,13 @@
                         <i>{{ $message }}</i>
                     @enderror
                 </div>
+                <div>
+                    <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}" required
+                        class="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" />
+                    @error('nombre')
+                        <i>{{ $message }}</i>
+                    @enderror
+                </div>
                 <div> <label for="categoria" class="text-sm text-gray-700 block mb-1 font-medium">Categoria</label>
                     <select name="categoria_id" id="categoria_id"
                         class="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full">

@@ -26,8 +26,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
         $categorias = Categoria::all();
-        return view('producto.form-create', compact('categorias'));
+        return view('producto.form-create', compact('categorias', 'user'));
     }
 
     /**
@@ -40,6 +41,7 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required|max:255',
+            'user_id' =>  'required|exists:users,id',
             'categoria_id' => 'required|exists:categorias,id',
             'existencias' => 'integer|min:0|required',
             'precio' => 'required|numeric',
@@ -67,8 +69,9 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
+        $user = auth()->user();
         $categorias = Categoria::all();
-        return view('producto.form-edit', compact('producto', 'categorias'));
+        return view('producto.form-edit', compact('producto', 'categorias', 'user'));
     }
 
     /**
@@ -82,6 +85,7 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required|max:255',
+            'user_id' =>  'required|exists:users,id',
             'categoria_id' => 'required|exists:categorias,id',
             'existencias' => 'integer|min:0|required',
             'precio' => 'required|numeric',

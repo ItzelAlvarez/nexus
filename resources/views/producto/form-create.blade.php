@@ -37,6 +37,13 @@
                         <i>{{ $message }}</i>
                     @enderror
                 </div>
+                <div>
+                    <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}" required
+                        class="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" />
+                    @error('nombre')
+                        <i>{{ $message }}</i>
+                    @enderror
+                </div>
             </div>
             <div class="space-x-4 mt-8">
                 <button type="submit"

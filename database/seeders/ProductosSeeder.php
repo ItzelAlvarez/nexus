@@ -15,9 +15,9 @@ class ProductosSeeder extends Seeder
      */
     public function run()
     {
-        Producto::create(['nombre' => 'Lapiz', 'categoria_id' => 1 , 'existencias' => 10, 'precio' => 5]);
-        Producto::create(['nombre' => 'Borrador', 'categoria_id' => 1 , 'existencias' => 15, 'precio' => 3]);
-        Producto::create(['nombre' => 'Jabon para manos', 'categoria_id' => 2 , 'existencias' => 18, 'precio' => 45]);
+        Producto::create(['nombre' => 'Lapiz', 'user_id'=>1, 'categoria_id' => 1 , 'existencias' => 10, 'precio' => 5]);
+        Producto::create(['nombre' => 'Borrador', 'user_id'=>1, 'categoria_id' => 1 , 'existencias' => 15, 'precio' => 3]);
+        Producto::create(['nombre' => 'Jabon para manos', 'user_id'=>1, 'categoria_id' => 2 , 'existencias' => 18, 'precio' => 45]);
 
         Producto::factory(5)->create();
     }
