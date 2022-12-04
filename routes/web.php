@@ -18,18 +18,21 @@ use App\Http\Controllers\SalidaController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('auth.login');
+})->name('home');
 
+Route::get('/dashboard', function () {
+    return view('welcome');
+})->name('dashboard');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/dashbard', function () {
         return view('dashboard');
-    })->name('dashboard');
+    });
 });
 Route::resource('salidas', SalidaController::class)->middleware('auth');
 Route::resource('entradas', EntradaController::class)->middleware('auth');
