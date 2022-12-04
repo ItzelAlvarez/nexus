@@ -1,5 +1,6 @@
 <x-plantilla>
-    <h1>
-      
-    </h1>
-  </x-plantilla>
+  <div>
+    <img src="{{ asset('imagen/banner.png') }}">
+  </div>
+ 
+</x-plantilla>

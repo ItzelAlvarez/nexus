@@ -41,7 +41,7 @@ class ProductoController extends Controller
         $request->validate([
             'nombre' => 'required|max:255',
             'categoria_id' => 'required|exists:categorias,id',
-            'existencias' => 'integer|min:0',
+            'existencias' => 'integer|min:0|required',
             'precio' => 'required|numeric',
         ]);
         Producto::create($request->all());
@@ -82,8 +82,8 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required|max:255',
-            'categoria_id' => 'required',
-            'existencias' => 'integer|min:0',
+            'categoria_id' => 'required|exists:categorias,id',
+            'existencias' => 'integer|min:0|required',
             'precio' => 'required|numeric',
         ]);
         Producto::where('id', $producto->id)->update($request->except('_token', '_method'));

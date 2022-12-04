@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\EntradaController;
+use App\Http\Controllers\SalidaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,5 +31,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-
+Route::resource('salidas', SalidaController::class)->middleware('auth');
+Route::resource('entradas', EntradaController::class)->middleware('auth');
+Route::resource('categorias', CategoriaController::class)->middleware('auth');
 Route::resource('productos', ProductoController::class)->middleware('auth');
+

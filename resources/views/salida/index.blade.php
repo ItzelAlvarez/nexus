@@ -9,15 +9,14 @@
                 <table class="table text-gray-400 border-separate space-y-6 text-sm">
                     <thead class="bg-gray-300 text-gray-900">
                         <tr>
-                            <th class="p-3">Nombre</th>
-                            <th class="p-3 text-left">Categoria</th>
-                            <th class="p-3 text-left">Existencias</th>
-                            <th class="p-3 text-left">Precio</th>
-                            <th class="p-3 text-left">Acciones</th>
+                            <th class="p-3">Salida No</th>
+                            <th class="p-3">Producto</th>
+                            <th class="p-3">Cantidad</th>
+                            <th class="p-3 text-left">Fecha de Creacion</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($productos as $producto)
+                        @foreach ($salidas as $salida)
                             <tr class="bg-gray-300">
                                 <td class="p-3">
                                     <div class="flex align-items-center">
@@ -25,37 +24,20 @@
                                         src="{{ asset('imagen/icon_product.png') }}"
                                             alt="unsplash image">
                                         <div class="ml-3">
-                                            <div class="mt-4 text-gray-900">{{ $producto->nombre }}</div>
+                                            <div class="mt-4 text-gray-900">{{ $salida->id }}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="p-3 text-gray-900">
-                                    {{ $producto->categoria->nombre }}
+                                    {{ $salida->producto->nombre }}
                                 </td>
-                                <td class="p-3 font-bold text-gray-900">
-                                    {{ $producto->existencias }}
+                                <td class="p-3 text-gray-900">
+                                    {{ $salida->cantidad }}
                                 </td>
-                                <td class="p-3">
-                                    <span class="text-gray-900">
-                                        ${{ $producto->precio }}
-                                    </span>
+                                <td class="p-3 text-gray-900">
+                                    {{ $salida->created_at->format('d/m/Y') }}
                                 </td>
-                                <td class="p-3 ">
-                                    <a href="{{ route('productos.show', $producto) }}"
-                                        class="text-gray-900 hover:text-gray-100 mr-2">
-                                        <i class="material-icons-outlined text-base">visibility</i>
-                                    </a>
-                                    <a href="{{ route('productos.edit', $producto) }}"
-                                        class="text-gray-900 hover:text-gray-100  mx-2">
-                                        <i class="material-icons-outlined text-base">edit</i>
-                                    </a>
-                                    <form method="POST" action="{{ route('productos.destroy', $producto) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" value="Eliminar">
-                                    </form>
-
-                                </td>
+                             
                             </tr>
                         @endforeach
                     </tbody>

@@ -19,6 +19,12 @@ class Producto extends Model
 
     public function entradas()
     {
-        return $this->belongsToMany(Entrada::class)->withPivot('cantidad');
+        return $this->belongsToMany(Entrada::class);
     }
+
+    public function salidas()
+    {
+        return $this->hasMany(Salida::class);
+    }
+
 }

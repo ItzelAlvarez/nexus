@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Entrada;
 use App\Models\Producto;
+use App\Models\Salida;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EntradaController extends Controller
+class SalidaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,8 @@ class EntradaController extends Controller
      */
     public function index()
     {
-       
-        $entradas = Auth::user()->entradas;
-        return view('entrada.Index', compact('entradas'));
+        $salidas = Auth::user()->salidas;
+        return view('salida.Index', compact('salidas'));
     }
 
     /**
@@ -30,7 +29,7 @@ class EntradaController extends Controller
     {
         $user = auth()->user();
         $productos = Producto::all();
-        return view('entrada.form-create', compact('productos', 'user'));
+        return view('salida.form-create', compact('productos', 'user'));
     }
 
     /**
@@ -42,33 +41,32 @@ class EntradaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'producto_id' => 'required|exists:productos,id',
+            'cantidad' => 'integer|min:1|required',
         ]);
-        $entrada = Entrada::create($request->all());
-        $entrada->productos()->attach($request->productos_id);
-        return redirect()->route('entradas.index');
+        Salida::create($request->all());
+        return redirect()->route('salidas.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Entrada  $entrada
+     * @param  \App\Models\Salida  $salida
      * @return \Illuminate\Http\Response
      */
-    public function show(Entrada $entrada)
+    public function show(Salida $salida)
     {
-        $productos = $entrada->productos;
-        return view('entrada.show', compact('productos'));
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Entrada  $entrada
+     * @param  \App\Models\Salida  $salida
      * @return \Illuminate\Http\Response
      */
-    public function edit(Entrada $entrada)
+    public function edit(Salida $salida)
     {
         //
     }
@@ -77,10 +75,10 @@ class EntradaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Entrada  $entrada
+     * @param  \App\Models\Salida  $salida
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Entrada $entrada)
+    public function update(Request $request, Salida $salida)
     {
         //
     }
@@ -88,10 +86,10 @@ class EntradaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Entrada  $entrada
+     * @param  \App\Models\Salida  $salida
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Entrada $entrada)
+    public function destroy(Salida $salida)
     {
         //
     }

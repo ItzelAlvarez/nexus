@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Entrada extends Model
 {
     use HasFactory;
-    protected $fillable = ['usuario_id'];
+    protected $fillable = ['user_id'];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -16,6 +16,6 @@ class Entrada extends Model
 
     public function productos()
     {
-        return $this->belongsToMany(Producto::class)->wherePivot('cantidad');
+        return $this->belongsToMany(Producto::class);
     }
 }
