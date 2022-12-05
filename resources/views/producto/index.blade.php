@@ -49,11 +49,15 @@
                                         class="text-gray-900 hover:text-gray-100  mx-2">
                                         <i class="material-icons-outlined text-base">edit</i>
                                     </a>
+                                    @can('delete', $producto)
                                     <form method="POST" action="{{ route('productos.destroy', $producto) }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="submit" value="Eliminar">
                                     </form>
+                                        
+                                    @endcan
+                                   
 
                                 </td>
                             </tr>

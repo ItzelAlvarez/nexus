@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Producto extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $fillable = ['nombre', 'user_id', 'categoria_id', 'existencias', 'precio'];
     //protected $guarded = ['id']; //lo que no permitira que ingrese el usuario
 
