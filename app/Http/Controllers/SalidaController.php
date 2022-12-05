@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Archivo;
 use App\Models\Producto;
 use App\Models\Salida;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SalidaController extends Controller
 {
@@ -45,7 +47,20 @@ class SalidaController extends Controller
             'producto_id' => 'required|exists:productos,id',
             'cantidad' => 'integer|min:1|required',
         ]);
-        Salida::create($request->all());
+        $salida = Salida::create($request->all());
+
+        //archivos 
+        if($request->file('archivo')->isValid()){
+            $ubicacion = $request->archivo->store('salidas');
+            $archivo = new Archivo();
+            //$archivo->salida_id = $salida->id;
+            $archivo->ubicacion = $ubicacion;
+            $archivo->mime = '';
+            $archivo->nombre_original = $request->archivo->getClientOriginalName();
+            $salida->archivos()->save($archivo);
+
+
+        }
         return redirect()->route('salidas.index');
     }
 
@@ -92,5 +107,9 @@ class SalidaController extends Controller
     public function destroy(Salida $salida)
     {
         //
+    }
+
+    public function descargaArchivo(Archivo $archivo){
+        return Storage::download($archivo->ubicacion);
     }
 }

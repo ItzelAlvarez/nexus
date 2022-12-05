@@ -12,7 +12,9 @@
                             <th class="p-3">Salida No</th>
                             <th class="p-3">Producto</th>
                             <th class="p-3">Cantidad</th>
+                            <th class="p-3">Archivo</th>
                             <th class="p-3 text-left">Fecha de Creacion</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +35,13 @@
                                 </td>
                                 <td class="p-3 text-gray-900">
                                     {{ $salida->cantidad }}
+                                </td>
+                                <td class="p-3 text-gray-900">
+                                    @foreach ($salida->archivos as $archivo)
+                                   
+                                       <li><a href="{{ route('descarga', $archivo) }}">{{ $archivo->nombre_original }}</a></li>
+                                    @endforeach
+                                    
                                 </td>
                                 <td class="p-3 text-gray-900">
                                     {{ $salida->created_at->format('d/m/Y') }}

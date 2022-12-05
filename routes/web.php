@@ -25,6 +25,8 @@ Route::get('/dashboard', function () {
     return view('welcome');
 })->name('dashboard');
 
+Route::get('/descarga{archivo}', [SalidaController::class, 'descargaArchivo'])->name('descarga');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
